@@ -578,7 +578,8 @@
 
     function activeIndex(){
       var w = track.clientWidth || 1;
-      return Math.round(track.scrollLeft / w);
+      var i = Math.round(track.scrollLeft / w);
+      return Math.max(0, Math.min(slides.length - 1, i)); // guard against rounding drift
     }
     function update(){
       var idx = activeIndex();

@@ -5,8 +5,8 @@
 window.SOLARIS_I18N = {
 
   fr: {
-    "meta.title": "SOLARIS — Photovoltaïque, sécurité et domotique | Côte d'Azur & Riviera",
-    "meta.desc": "SOLARIS installe photovoltaïque, alarme, vidéosurveillance et domotique sur la Côte d'Azur (Beausoleil, Menton, Monaco, Nice) et la Riviera ligure (Sanremo, Imperia). Étude personnalisée, un seul interlocuteur.",
+    "meta.title": "SOLARIS — Photovoltaïque, sécurité, domotique | Côte d'Azur",
+    "meta.desc": "SOLARIS installe photovoltaïque, alarme et domotique sur la Côte d'Azur et la Riviera ligure (Menton, Monaco, Nice, Sanremo). Étude personnalisée, un seul interlocuteur.",
 
     "nav.home": "Accueil",
     "nav.solar": "Photovoltaïque",
@@ -366,8 +366,8 @@ window.SOLARIS_I18N = {
   },
 
   en: {
-    "meta.title": "SOLARIS — Solar power, security and smart home | Côte d'Azur & Riviera",
-    "meta.desc": "SOLARIS installs solar power, alarm, video surveillance and smart home systems on the Côte d'Azur (Beausoleil, Menton, Monaco, Nice) and the Italian Riviera (Sanremo, Imperia). Personalised study, a single point of contact.",
+    "meta.title": "SOLARIS — Solar power, security, smart home | Côte d'Azur",
+    "meta.desc": "SOLARIS installs solar power, alarm and smart home systems on the Côte d'Azur and Italian Riviera (Menton, Monaco, Nice, Sanremo). Personalised study, one point of contact.",
 
     "nav.home": "Home",
     "nav.solar": "Solar power",
@@ -727,8 +727,8 @@ window.SOLARIS_I18N = {
   },
 
   it: {
-    "meta.title": "SOLARIS — Fotovoltaico, sicurezza e domotica | Costa Azzurra e Riviera",
-    "meta.desc": "SOLARIS installa fotovoltaico, allarme, videosorveglianza e domotica sulla Costa Azzurra (Beausoleil, Mentone, Monaco, Nizza) e sulla Riviera ligure (Sanremo, Imperia). Studio personalizzato, un solo interlocutore.",
+    "meta.title": "SOLARIS — Fotovoltaico, sicurezza, domotica | Costa Azzurra",
+    "meta.desc": "SOLARIS installa fotovoltaico, allarme e domotica sulla Costa Azzurra e Riviera ligure (Mentone, Monaco, Nizza, Sanremo). Studio personalizzato, un solo interlocutore.",
 
     "nav.home": "Home",
     "nav.solar": "Fotovoltaico",
