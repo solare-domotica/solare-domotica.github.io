@@ -391,7 +391,11 @@ h1,h2,h3,h4,p{ margin:0; }
   text-align:center;
   padding: 28px 20px 24px;
 }
-@media (min-width: 860px){ .carousel-slide{ padding: 60px 24px 40px; align-items:center; min-height: 560px; } }
+@media (min-width: 860px){ .carousel-slide{ padding: 60px 24px 40px; align-items:center; } }
+/* Only force the taller "desktop" slide height when there's actually room
+   for it — a large phone in landscape (e.g. 926x428) matches min-width:860px
+   but is far too short for a 560px-tall slide. */
+@media (min-width: 860px) and (min-height: 600px){ .carousel-slide{ min-height: 560px; } }
 .slide-inner{ max-width: 620px; width:100%; margin:0 auto; }
 
 .carousel-dots{
