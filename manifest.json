@@ -1,7 +1,8 @@
 {
   "name": "SOLARIS — Énergie, Sécurité, Domotique",
   "short_name": "SOLARIS",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#05070c",
   "theme_color": "#05070c",
