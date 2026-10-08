@@ -1,5 +1,5 @@
 /* =========================================================
-   SOLARIS — main.js
+   Solare Domotica — main.js
    ========================================================= */
 (function(){
   "use strict";
@@ -212,9 +212,9 @@
     document.querySelectorAll("[data-wa-cta]").forEach(function(el){
       var msgKey = el.getAttribute("data-wa-cta");
       var messages = {
-        fr: "Bonjour SOLARIS, je souhaite être contacté au sujet d'un projet (" + (msgKey || "site web") + ").",
-        en: "Hello SOLARIS, I'd like to be contacted about a project (" + (msgKey || "website") + ").",
-        it: "Ciao SOLARIS, vorrei essere contattato per un progetto (" + (msgKey || "sito web") + ")."
+        fr: "Bonjour Solare Domotica, je souhaite être contacté au sujet d'un projet (" + (msgKey || "site web") + ").",
+        en: "Hello Solare Domotica, I'd like to be contacted about a project (" + (msgKey || "website") + ").",
+        it: "Ciao Solare Domotica, vorrei essere contattato per un progetto (" + (msgKey || "sito web") + ")."
       };
       el.setAttribute("href", "#");
       el.addEventListener("click", function(ev){
@@ -224,9 +224,9 @@
     });
     document.querySelectorAll("[data-wa-call]").forEach(function(el){
       var messages = {
-        fr: "Bonjour SOLARIS, je souhaite parler à un expert.",
-        en: "Hello SOLARIS, I'd like to talk to an expert.",
-        it: "Ciao SOLARIS, vorrei parlare con un esperto."
+        fr: "Bonjour Solare Domotica, je souhaite parler à un expert.",
+        en: "Hello Solare Domotica, I'd like to talk to an expert.",
+        it: "Ciao Solare Domotica, vorrei parlare con un esperto."
       };
       el.setAttribute("href", "#");
       el.addEventListener("click", function(ev){
@@ -417,7 +417,7 @@
     function buildWaMessage(){
       var templates = {
         fr: [
-          "Bonjour SOLARIS, voici ma demande d'étude :",
+          "Bonjour Solare Domotica, voici ma demande d'étude :",
           "Type de projet : " + displayValue("type", state.type),
           "Objectif : " + displayValue("goal", state.goal),
           "Consommation : " + displayValue("budget", state.budget),
@@ -427,7 +427,7 @@
           "Email : " + (state.email || "—")
         ],
         en: [
-          "Hello SOLARIS, here is my study request:",
+          "Hello Solare Domotica, here is my study request:",
           "Project type: " + displayValue("type", state.type),
           "Goal: " + displayValue("goal", state.goal),
           "Energy spend: " + displayValue("budget", state.budget),
@@ -437,7 +437,7 @@
           "Email: " + (state.email || "—")
         ],
         it: [
-          "Ciao SOLARIS, ecco la mia richiesta di studio:",
+          "Ciao Solare Domotica, ecco la mia richiesta di studio:",
           "Tipo di progetto: " + displayValue("type", state.type),
           "Obiettivo: " + displayValue("goal", state.goal),
           "Consumo: " + displayValue("budget", state.budget),
@@ -654,7 +654,7 @@
     update();
   }
 
-  /* ---------- SOLARIS Connect — fast 2-step conversion form ---------- */
+  /* ---------- Solare Domotica Connect — fast 2-step conversion form ---------- */
   function initConnectForm(){
     var root = document.querySelector(".fast-form");
     if(!root) return;
@@ -732,19 +732,19 @@
     function buildMessage(){
       var templates = {
         fr: [
-          "Bonjour SOLARIS, je souhaite activer SOLARIS Connect :",
+          "Bonjour Solare Domotica, je souhaite activer Solare Domotica Connect :",
           "Je veux connecter : " + displayTarget(),
           "Prénom : " + (state.firstname || "—"),
           "Téléphone : " + (state.phone || "—")
         ],
         en: [
-          "Hello SOLARIS, I'd like to activate SOLARIS Connect:",
+          "Hello Solare Domotica, I'd like to activate Solare Domotica Connect:",
           "I want to connect: " + displayTarget(),
           "First name: " + (state.firstname || "—"),
           "Phone: " + (state.phone || "—")
         ],
         it: [
-          "Ciao SOLARIS, vorrei attivare SOLARIS Connect:",
+          "Ciao Solare Domotica, vorrei attivare Solare Domotica Connect:",
           "Voglio collegare: " + displayTarget(),
           "Nome: " + (state.firstname || "—"),
           "Telefono: " + (state.phone || "—")
