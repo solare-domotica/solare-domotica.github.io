@@ -1,5 +1,5 @@
 /**
- * SOLARIS — relais "prospects abandonnés"
+ * Solare Domotica — relais "prospects abandonnés"
  * ----------------------------------------
  * Reçoit les signaux envoyés par le site (assets/js/main.js → sendLead)
  * et, uniquement quand un visiteur quitte le simulateur SANS le terminer,
@@ -16,8 +16,8 @@
  *
  * Variables à configurer dans Cloudflare (Worker → Settings → Variables) :
  *   GITHUB_TOKEN   (Secret)  — fine-grained PAT, permission "Contents: Read and write" sur le repo
- *   GITHUB_OWNER   (Text)    — ex. "maxmcneil"
- *   GITHUB_REPO    (Text)    — ex. "solaris"
+ *   GITHUB_OWNER   (Text)    — ex. "solare-domotica"
+ *   GITHUB_REPO    (Text)    — ex. "solare-domotica-leads" (dépôt PRIVÉ)
  *   GITHUB_PATH    (Text)    — ex. "leads/abandoned.txt"
  *   GITHUB_BRANCH  (Text)    — ex. "main"
  *
@@ -26,8 +26,8 @@
 
 const COLUMNS = [
   "when", "lang", "page", "stepLabel",
-  "type", "goal", "budget", "address",
-  "firstname", "lastname", "phone", "email"
+  "type", "equip", "city", "message",
+  "firstname", "phone"
 ];
 
 function toLine(data) {
@@ -38,13 +38,11 @@ function toLine(data) {
     page: data.page || "",
     stepLabel,
     type: data.type || "",
-    goal: data.goal || "",
-    budget: data.budget || "",
-    address: data.address || "",
+    equip: data.equip || "",
+    city: data.city || "",
+    message: data.message || "",
     firstname: data.firstname || "",
-    lastname: data.lastname || "",
-    phone: data.phone || "",
-    email: data.email || ""
+    phone: data.phone || ""
   };
   return COLUMNS
     .map((key) => String(row[key] || "").replace(/[\t\n\r]+/g, " ").trim())
@@ -64,7 +62,7 @@ async function appendLineToGitHubFile(env, line) {
   const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_PATH}`;
   const headers = {
     "Authorization": `Bearer ${GITHUB_TOKEN}`,
-    "User-Agent": "solaris-leads-worker",
+    "User-Agent": "solare-domotica-leads-worker",
     "Accept": "application/vnd.github+json"
   };
 
@@ -127,6 +125,14 @@ export default {
 
     // Only genuinely abandoned sessions are written to the file.
     if (data.status !== "abandoned") {
+      return new Response(JSON.stringify({ ok: true, skipped: true }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      });
+    }
+
+    // Data minimisation: a row without a phone number cannot be followed up,
+    // so it is not stored at all.
+    if (String(data.phone || "").replace(/\D/g, "").length < 6) {
       return new Response(JSON.stringify({ ok: true, skipped: true }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" }
       });

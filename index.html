@@ -192,23 +192,23 @@
           <h2 class="h2 center" data-i18n="objective.title">Qu'avez-vous envie d'améliorer ?</h2>
           <p class="lede" style="margin:14px auto 22px" data-i18n="objective.lede">Chaque habitation est différente. Commencez par nous dire ce que vous recherchez.</p>
           <div class="objective-grid">
-            <div class="objective-card" data-sim-goal="bill" role="button" tabindex="0">
-              <span class="ico">☀️</span>
+            <div class="objective-card" data-sim-type="villa" role="button" tabindex="0">
+              <span class="ico">🏡</span>
               <h3 data-i18n="objective.card1.title">Réduire ma facture</h3>
               <p data-i18n="objective.card1.text">Je veux produire et mieux utiliser ma propre énergie.</p>
             </div>
-            <div class="objective-card" data-sim-goal="secure" role="button" tabindex="0">
-              <span class="ico">🛡️</span>
+            <div class="objective-card" data-sim-type="business" role="button" tabindex="0">
+              <span class="ico">🏢</span>
               <h3 data-i18n="objective.card2.title">Sécuriser mon habitation</h3>
               <p data-i18n="objective.card2.text">Je veux protéger ma maison et garder le contrôle à distance.</p>
             </div>
-            <div class="objective-card" data-sim-goal="automate" role="button" tabindex="0">
-              <span class="ico">⚡</span>
+            <div class="objective-card" data-sim-type="yacht" role="button" tabindex="0">
+              <span class="ico">⛵</span>
               <h3 data-i18n="objective.card3.title">Automatiser ma consommation</h3>
               <p data-i18n="objective.card3.text">Je veux piloter intelligemment mes équipements.</p>
             </div>
-            <div class="objective-card" data-sim-goal="all" role="button" tabindex="0">
-              <span class="ico">⭐</span>
+            <div class="objective-card" data-sim-type="remote" role="button" tabindex="0">
+              <span class="ico">☀️</span>
               <h3 data-i18n="objective.card4.title">Tout combiner</h3>
               <p data-i18n="objective.card4.text">Je veux une solution globale pour mon habitat.</p>
             </div>
@@ -316,78 +316,62 @@
 
       <div class="simulator" id="simulateur" style="max-width:640px;margin:0 auto;">
         <div class="sim-progress">
-          <i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i>
         </div>
 
         <div class="sim-step is-active" data-step="0">
-          <h3 data-i18n="sim.s1.title">Quel type de projet ?</h3>
-          <p class="step-sub" data-i18n="sim.s1.sub">Étape 1 sur 5</p>
+          <h3 data-i18n="sim.s1.title">Que souhaitez-vous sécuriser ?</h3>
+          <p class="step-sub" data-i18n="sim.s1.sub">Étape 1 sur 4</p>
           <div class="choice-grid" data-field="type" role="radiogroup">
-            <div class="choice" data-value="individual" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o1">Maison individuelle</span></div>
-            <div class="choice" data-value="apartment" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o2">Appartement</span></div>
-            <div class="choice" data-value="business" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o3">Local professionnel</span></div>
-            <div class="choice" data-value="other" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o4">Autre</span></div>
+            <div class="choice" data-value="villa" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o1">Maison / villa</span></div>
+            <div class="choice" data-value="business" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o2">Entreprise / local</span></div>
+            <div class="choice" data-value="yacht" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o3">Yacht / bateau</span></div>
+            <div class="choice" data-value="remote" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o4">Site isolé (sans réseau)</span></div>
+            <div class="choice" data-value="other" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s1.o5">Autre</span></div>
           </div>
         </div>
 
         <div class="sim-step" data-step="1">
-          <h3 data-i18n="sim.s2.title">Quel est votre objectif ?</h3>
-          <p class="step-sub" data-i18n="sim.s2.sub">Étape 2 sur 5</p>
-          <div class="choice-grid" data-field="goal" role="radiogroup">
-            <div class="choice" data-value="bill" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o1">Réduire ma facture</span></div>
-            <div class="choice" data-value="produce" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o2">Produire ma propre énergie</span></div>
-            <div class="choice" data-value="secure" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o3">Sécuriser mon habitation</span></div>
-            <div class="choice" data-value="automate" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o4">Automatiser mes équipements</span></div>
-            <div class="choice" data-value="all" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o5">Solution complète</span></div>
+          <h3 data-i18n="sim.s2.title">Quels équipements vous intéressent ?</h3>
+          <p class="step-sub" data-i18n="sim.s2.sub">Étape 2 sur 4 — plusieurs choix possibles</p>
+          <div class="choice-grid" data-field="equip" data-multi role="group">
+            <div class="choice choice--multi" data-value="cam" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o1">Caméras de surveillance</span></div>
+            <div class="choice choice--multi" data-value="alarm" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o2">Alarme</span></div>
+            <div class="choice choice--multi" data-value="solar" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o3">Alimentation solaire autonome</span></div>
+            <div class="choice choice--multi" data-value="alerts" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o4">Alertes & contrôle smartphone</span></div>
+            <div class="choice choice--multi" data-value="auto" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o5">Automatisation (portail, éclairage, volets)</span></div>
+            <div class="choice choice--multi" data-value="unsure" role="checkbox" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s2.o6">Je ne sais pas — conseillez-moi</span></div>
           </div>
         </div>
 
         <div class="sim-step" data-step="2">
-          <h3 data-i18n="sim.s3.title">Quel est votre niveau de consommation ?</h3>
-          <p class="step-sub" data-i18n="sim.s3.sub">Étape 3 sur 5</p>
-          <div class="choice-grid" data-field="budget" role="radiogroup">
-            <div class="choice" data-value="low" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s3.o1">Moins de 100 €/mois</span></div>
-            <div class="choice" data-value="mid" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s3.o2">100 à 200 €/mois</span></div>
-            <div class="choice" data-value="high" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s3.o3">200 à 300 €/mois</span></div>
-            <div class="choice" data-value="veryhigh" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s3.o4">Plus de 300 €/mois</span></div>
-            <div class="choice" data-value="unknown" role="radio" tabindex="0" aria-checked="false"><span class="dot"></span><span data-i18n="sim.s3.o5">Je ne sais pas</span></div>
+          <h3 data-i18n="sim.s3.title">Où se situe le projet ?</h3>
+          <p class="step-sub" data-i18n="sim.s3.sub">Étape 3 sur 4</p>
+          <div class="field">
+            <label for="sim-city" data-i18n="sim.s3.city">Ville / zone</label>
+            <input id="sim-city" type="text" data-field="city" data-i18n-placeholder="sim.s3.city_ph" placeholder="Ex. Menton, Nice, Sanremo…" autocomplete="address-level2">
           </div>
+          <div class="field">
+            <label for="sim-msg" data-i18n="sim.s3.msg">Un détail à ajouter ? (facultatif)</label>
+            <textarea id="sim-msg" rows="2" maxlength="300" data-field="message" data-i18n-placeholder="sim.s3.msg_ph" placeholder="Ex. villa vide en été…"></textarea>
+          </div>
+          <p class="microcopy" data-i18n="sim.s3.note" style="margin-top:0">Vous pourrez envoyer des photos du lieu directement sur WhatsApp.</p>
         </div>
 
         <div class="sim-step" data-step="3">
-          <h3 data-i18n="sim.s4.title">Où se situe votre projet ?</h3>
-          <p class="step-sub" data-i18n="sim.s4.sub">Étape 4 sur 5</p>
-          <div class="field">
-            <label for="sim-address" data-i18n="sim.s4.label">Adresse du logement</label>
-            <input id="sim-address" type="text" data-field="address" data-i18n-placeholder="sim.s4.placeholder" placeholder="Rue, ville, code postal" autocomplete="street-address">
-          </div>
-          <p class="microcopy" data-i18n="sim.s4.note" style="margin-top:0">Cette information permet d'étudier les caractéristiques du projet et, lorsque pertinent, l'ensoleillement.</p>
-        </div>
-
-        <div class="sim-step" data-step="4">
-          <h3 data-i18n="sim.s5.title">Comment vous contacter ?</h3>
-          <p class="step-sub" data-i18n="sim.s5.sub">Étape 5 sur 5</p>
+          <h3 data-i18n="sim.s4.title">Comment vous contacter ?</h3>
+          <p class="step-sub" data-i18n="sim.s4.sub">Étape 4 sur 4</p>
           <div class="field-row">
             <div class="field">
-              <label for="sim-fn" data-i18n="sim.s5.firstname">Prénom</label>
-              <input id="sim-fn" type="text" data-field="firstname" autocomplete="given-name">
+              <label for="sim-fn" data-i18n="sim.s4.name">Prénom / nom</label>
+              <input id="sim-fn" type="text" data-field="firstname" autocomplete="name">
             </div>
             <div class="field">
-              <label for="sim-ln" data-i18n="sim.s5.lastname">Nom</label>
-              <input id="sim-ln" type="text" data-field="lastname" autocomplete="family-name">
-            </div>
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="sim-ph" data-i18n="sim.s5.phone">Téléphone</label>
+              <label for="sim-ph" data-i18n="sim.s4.phone">Téléphone (WhatsApp)</label>
               <input id="sim-ph" type="tel" data-field="phone" autocomplete="tel">
             </div>
-            <div class="field">
-              <label for="sim-em" data-i18n="sim.s5.email">Email</label>
-              <input id="sim-em" type="email" data-field="email" autocomplete="email">
-            </div>
           </div>
-          <p class="microcopy" data-i18n="sim.s5.note" style="margin-top:0">Votre demande est envoyée directement par WhatsApp à Solare Domotica.</p>
+          <p class="microcopy" data-i18n="sim.s4.note" style="margin-top:0">Votre demande part directement par WhatsApp. Sans engagement.</p>
         </div>
 
         <div class="sim-nav">
@@ -401,10 +385,10 @@
           </div>
           <h3 data-i18n="sim.success.title">Votre demande est bien enregistrée.</h3>
           <p data-i18n="sim.success.text">Un expert Solare Domotica étudie votre projet et vous contacte sur WhatsApp pour la suite.</p>
-          <div class="estimate-box" style="display:none">
-            <span class="estimate-label" data-i18n="sim.estimate.title">Gain annuel estimé</span>
-            <div class="estimate-value"></div>
-            <p class="estimate-disclaimer" data-i18n="sim.estimate.disclaimer">Estimation indicative à partir de projets comparables — le chiffre définitif sera déterminé lors de l'étude gratuite, en tenant compte de l'exposition de votre toiture.</p>
+          <div class="estimate-box">
+            <span class="estimate-label" data-i18n="sim.pack.title">Première orientation</span>
+            <ul class="pack-list"></ul>
+            <p class="estimate-disclaimer" data-i18n="sim.pack.disclaimer">Orientation indicative.</p>
           </div>
           <div class="recap"></div>
           <div class="hero-actions" style="justify-content:center">
@@ -449,16 +433,82 @@
     <div class="container">
       <div class="section-head">
         <span class="eyebrow" data-i18n="projects.eyebrow">Réalisations</span>
-        <h2 class="h2" data-i18n="projects.title">Du matériel réel. Des installations réelles.</h2>
+        <h2 class="h2" data-i18n="projects.title">Des situations réelles. Des solutions concrètes.</h2>
         <p class="lede" style="margin-top:14px" data-i18n="projects.lede">Chaque réalisation est documentée : type de projet, solution installée, zone et objectif.</p>
       </div>
       <div class="gallery">
-        <div class="gallery-card"><div class="gallery-thumb">☀️ Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card1.tag">Photovoltaïque</span><h3 data-i18n="projects.card1.title">Maison individuelle</h3><p data-i18n="projects.card1.text">Installation solaire et gestion de l'autoconsommation.</p></div></div>
-        <div class="gallery-card"><div class="gallery-thumb">🛡️ Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card2.tag">Sécurité</span><h3 data-i18n="projects.card2.title">Alarme & vidéosurveillance</h3><p data-i18n="projects.card2.text">Protection périmétrique et contrôle à distance.</p></div></div>
-        <div class="gallery-card"><div class="gallery-thumb">⚡ Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card3.tag">Domotique</span><h3 data-i18n="projects.card3.title">Pilotage énergétique</h3><p data-i18n="projects.card3.text">Automatisation connectée à la production solaire.</p></div></div>
-        <div class="gallery-card"><div class="gallery-thumb">⭐ Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card4.tag">Intégral</span><h3 data-i18n="projects.card4.title">Produire · Protéger · Piloter</h3><p data-i18n="projects.card4.text">Solution complète pour un habitat autonome.</p></div></div>
-        <div class="gallery-card"><div class="gallery-thumb">🏢 Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card5.tag">Local professionnel</span><h3 data-i18n="projects.card5.title">Photovoltaïque tertiaire</h3><p data-i18n="projects.card5.text">Réduction des charges énergétiques d'un local d'activité.</p></div></div>
-        <div class="gallery-card"><div class="gallery-thumb">🔧 Photo à venir</div><div class="gallery-body"><span class="tag" data-i18n="projects.card6.tag">Rénovation</span><h3 data-i18n="projects.card6.title">Mise à niveau énergétique</h3><p data-i18n="projects.card6.text">Ajout progressif de sécurité et de domotique.</p></div></div>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">🏡</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card1.tag">Maison & villa</span>
+            <h3 data-i18n="projects.card1.title">Villa vide plusieurs mois par an</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card1.problem">Aucune visibilité sur la maison pendant les absences.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card1.solution">Caméras extérieures, alarme et application smartphone.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card1.result">Vue en direct et alerte immédiate en cas d'intrusion.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">⛵</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card2.tag">Yacht</span>
+            <h3 data-i18n="projects.card2.title">Bateau amarré au port</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card2.problem">Impossible de surveiller le bateau et sa batterie à distance.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card2.solution">Caméras, capteurs et alimentation autonome avec liaison mobile.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card2.result">Suivi à distance et alertes en cas d'intrusion ou de batterie faible.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">☀️</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card3.tag">Site isolé</span>
+            <h3 data-i18n="projects.card3.title">Terrain ou chantier sans réseau</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card3.problem">Pas d'électricité ni d'Internet : pas de protection possible.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card3.solution">Pack caméra + alarme alimenté par panneau solaire, connecté en 4G.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card3.result">Surveillance autonome 24h/24, sans aucun raccordement.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">🏢</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card4.tag">Entreprise</span>
+            <h3 data-i18n="projects.card4.title">Local commercial ou entrepôt</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card4.problem">Cambriolages, accès non maîtrisés, besoin de preuves.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card4.solution">Vidéosurveillance, alarme, contrôle d'accès et éclairage automatisé.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card4.result">Locaux protégés, accès tracés, historique consultable à distance.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">⚡</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card5.tag">Domotique</span>
+            <h3 data-i18n="projects.card5.title">Villa connectée</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card5.problem">Portail, volets et lumières gérés séparément.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card5.solution">Scénarios automatisés pilotés depuis une seule application.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card5.result">Maison qui s'adapte à votre vie, contrôlée d'un seul geste.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="gallery-card case">
+          <div class="gallery-thumb"><span class="case-ico" aria-hidden="true">🧩</span></div>
+          <div class="gallery-body">
+            <span class="tag" data-i18n="projects.card6.tag">Évolutif</span>
+            <h3 data-i18n="projects.card6.title">Équiper par étapes</h3>
+            <dl class="case-steps">
+              <div><dt data-i18n="projects.lbl.problem">Problème</dt><dd data-i18n="projects.card6.problem">Budget à étaler, besoins qui évoluent.</dd></div>
+              <div><dt data-i18n="projects.lbl.solution">Solution</dt><dd data-i18n="projects.card6.solution">Une base sécurité extensible : caméras, solaire, domotique ensuite.</dd></div>
+              <div><dt data-i18n="projects.lbl.result">Résultat</dt><dd data-i18n="projects.card6.result">Un système cohérent qui grandit sans tout refaire.</dd></div>
+            </dl>
+          </div>
+        </article>
       </div>
       <p class="gallery-note" data-i18n="projects.note">Photos de chantier réelles ajoutées au fil des installations.</p>
     </div>
@@ -488,7 +538,7 @@
       </div>
       <div class="steps">
         <div class="step"><span class="num">01</span><h3 data-i18n="how.step1.title">Vous nous parlez de votre projet</h3><p data-i18n="how.step1.text">Quelques informations suffisent pour commencer.</p></div>
-        <div class="step"><span class="num">02</span><h3 data-i18n="how.step2.title">Nous étudions vos besoins</h3><p data-i18n="how.step2.text">Habitation, consommation, sécurité et équipements existants.</p></div>
+        <div class="step"><span class="num">02</span><h3 data-i18n="how.step2.title">Nous étudions vos besoins</h3><p data-i18n="how.step2.text">Site, accès, équipements existants et besoin d'autonomie solaire.</p></div>
         <div class="step"><span class="num">03</span><h3 data-i18n="how.step3.title">Nous construisons la solution</h3><p data-i18n="how.step3.text">Une proposition adaptée à votre situation.</p></div>
         <div class="step"><span class="num">04</span><h3 data-i18n="how.step4.title">Installation et mise en service</h3><p data-i18n="how.step4.text">Installation, configuration et accompagnement.</p></div>
       </div>
@@ -506,16 +556,16 @@
         <h2 class="h2" data-i18n="faq.title">Les questions que vous vous posez avant de vous lancer</h2>
       </div>
       <div class="faq">
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q1">Combien coûte une installation photovoltaïque ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a1">Le prix dépend de la surface disponible, de votre consommation et du matériel choisi. Chaque projet fait l'objet d'une étude avant tout chiffrage.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q2">Mon habitation est-elle adaptée ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a2">La plupart des toitures et des habitations peuvent accueillir une installation. Une étude permet de vérifier l'orientation, l'exposition et la faisabilité technique.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q3">Combien de panneaux me faut-il ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a3">Cela dépend de votre consommation actuelle et de vos objectifs. C'est précisément ce que l'étude personnalisée permet de déterminer.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q4">Que devient l'électricité produite ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a4">Elle est utilisée en priorité par votre logement. Le surplus peut être géré selon la configuration retenue avec vous.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q5">Puis-je commencer uniquement par le photovoltaïque ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a5">Oui. Chaque solution peut être installée seule ou combinée, selon votre projet et votre budget.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q6">Puis-je ajouter une alarme plus tard ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a6">Oui, les solutions Solare Domotica sont pensées pour évoluer et se compléter dans le temps.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q7">Puis-je connecter la domotique à mon installation solaire ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a7">Oui, c'est justement l'intérêt de l'approche Solare Domotica : piloter vos équipements selon l'énergie disponible.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q8">Puis-je contrôler mes équipements depuis mon smartphone ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a8">Oui, la supervision et le pilotage à distance font partie des solutions proposées.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q9">Combien de temps dure l'installation ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a9">La durée varie selon la solution choisie et la complexité du chantier. Un planning précis vous est communiqué après l'étude.</p></div></div>
-        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q10">Que se passe-t-il après l'installation ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a10">Solare Domotica reste votre interlocuteur pour la configuration, les réglages et le suivi de votre installation.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q1">Combien coûte une installation de sécurité ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a1">Le prix dépend du site, du nombre de caméras et d'accès, et de l'autonomie souhaitée. Chaque projet fait l'objet d'une étude gratuite avant tout chiffrage.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q2">Est-ce que ça fonctionne sans électricité ni Internet ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a2">Oui : le pack autonome combine panneau solaire, batterie et connexion mobile (4G). Il convient aux sites isolés, chantiers, terrains et bateaux.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q3">Puis-je voir mes caméras depuis mon smartphone ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a3">Oui. Vous visualisez le site en direct et recevez des alertes sur votre smartphone, où que vous soyez.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q4">Que se passe-t-il en cas d'intrusion ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a4">Le système détecte l'événement et envoie une alerte. Les actions associées (sirène, notification, appel) sont définies avec vous lors de l'étude.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q5">Puis-je commencer par un seul équipement ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a5">Oui. Chaque solution peut être installée seule ou combinée, selon votre projet et votre budget.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q6">Puis-je ajouter des équipements plus tard ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a6">Oui, les solutions Solare Domotica sont pensées pour évoluer : caméras, alarme, solaire, domotique.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q7">Installez-vous sur les yachts et bateaux ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a7">Oui : surveillance à quai ou au mouillage, alimentation autonome et alertes à distance, adaptées à l'environnement marin.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q8">Puis-je piloter portail, éclairage et volets ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a8">Oui, l'automatisation et le pilotage à distance depuis une seule application font partie des solutions proposées.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q9">Combien de temps dure l'installation ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a9">La durée varie selon la solution et la complexité du site. Un planning précis vous est communiqué après l'étude.</p></div></div>
+        <div class="faq-item"><button class="faq-q"><span data-i18n="faq.q10">Dans quelles zones intervenez-vous ?</span><span class="plus"></span></button><div class="faq-a"><p data-i18n="faq.a10">Côte d'Azur, Monaco, Menton, Nice et Riviera ligure (Sanremo, Vintimille). Pour un autre secteur, écrivez-nous sur WhatsApp.</p></div></div>
       </div>
     </div>
   </section>
@@ -524,13 +574,13 @@
   <section class="section">
     <div class="container">
       <div class="final-cta">
-        <h2 class="h2 center" data-i18n="final.title_l1">Votre maison peut faire plus.</h2>
-        <p class="lede" style="margin:16px auto 0" data-i18n="final.lede">Produire son énergie. Se protéger. Automatiser ses usages.</p>
+        <h2 class="h2 center" data-i18n="final.title_l1">Votre bien mérite d'être protégé.</h2>
+        <p class="lede" style="margin:16px auto 0" data-i18n="final.lede">Sécuriser. Automatiser. Contrôler — même sans réseau électrique.</p>
         <div class="final-cta-actions" style="margin-top:28px">
           <a href="#simulateur" class="btn btn-gold btn-lg">🟠 <span data-i18n="final.cta">Démarrer mon étude Solare Domotica</span></a>
           <a href="#" class="btn btn-ghost btn-lg" data-wa-call>📞 <span data-i18n="final.call">Appeler Solare Domotica</span></a>
         </div>
-        <p class="microcopy" data-i18n="final.microcopy">Étude personnalisée · Un seul interlocuteur · Accompagnement professionnel</p>
+        <p class="microcopy" data-i18n="final.microcopy">Étude gratuite · Un seul interlocuteur · Réponse sur WhatsApp</p>
       </div>
     </div>
   </section>

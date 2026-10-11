@@ -6,9 +6,9 @@ Site vitrine ultra-rapide et mobile-first pour SOLARIS (photovoltaïque, sécuri
 
 ## Mise en ligne (GitHub Pages)
 
-1. Poussez ce contenu sur la branche `main` de votre dépôt `solaris`.
+1. Poussez ce contenu sur la branche `main` de le dépôt `solare-domotica.github.io` (à la racine).
 2. Dans **Settings → Pages**, choisissez la branche `main` et le dossier `/ (root)`.
-3. Le site est en ligne à l'adresse `https://<votre-compte>.github.io/solaris/`.
+3. Le site est en ligne à l'adresse `https://solare-domotica.github.io/`.
 
 Pour un nom de domaine personnalisé, ajoutez un fichier `CNAME` à la racine avec votre domaine, et configurez les DNS chez votre registrar (enregistrement `CNAME` vers `<votre-compte>.github.io`).
 
@@ -58,9 +58,16 @@ Le site peut enregistrer, dans un fichier texte `leads/abandoned.txt` **directem
 - **Mentions légales / confidentialité** : remplacer les champs `[à compléter]` (raison sociale, SIREN, adresse) — à faire valider par un professionnel du droit.
 - **Réalisations** : remplacer les vignettes d'exemple par de vraies photos de chantier (section « Réalisations » de la page d'accueil).
 - **Avis clients** : la section est volontairement vide (aucun avis n'est inventé). Elle peut être remplacée par un widget Google Avis une fois la fiche établissement disponible.
-- **Domaine** : les URL canoniques, `sitemap.xml`, `robots.txt` et les données structurées pointent vers `https://maxmcneil.github.io/solaris/` (déduit du nom du dépôt). Si le site est finalement publié ailleurs ou sur un domaine personnalisé, remplacez cette URL partout (recherche/remplace global dans les fichiers `.html`, `sitemap.xml`, `robots.txt`).
+- **Domaine** : les URL canoniques, `sitemap.xml`, `robots.txt` et les données structurées pointent vers `https://solare-domotica.github.io/` (déduit du nom du dépôt). Si le site est finalement publié ailleurs ou sur un domaine personnalisé, remplacez cette URL partout (recherche/remplace global dans les fichiers `.html`, `sitemap.xml`, `robots.txt`).
 - **Analytics** : aucun outil de mesure n'est installé par défaut. Le bandeau cookies (`assets/js/main.js`, `initCookieBar`) se réduit et disparaît après 8 secondes sans réponse — **conformément au RGPD, ce silence n'est jamais traité comme un consentement** : tant que le visiteur n'a pas cliqué « Accepter », aucun cookie non essentiel n'est activé, et une petite icône 🍪 reste affichée pour rouvrir le bandeau à tout moment. Il est prêt à conditionner le chargement d'un outil compatible RGPD si besoin.
 
 ## Performance
 
 Pas de web font externe, pas de framework, images compressées en WebP, un seul fichier CSS et deux fichiers JS courts : l'objectif est un chargement quasi instantané, y compris sur mobile en 4G.
+
+## Nouveautés (simulateur v2, réalisations, prospection)
+
+- Simulateur en 4 étapes (projet → équipements multi-choix → zone → contact) avec « première orientation » avant l'ouverture automatique de WhatsApp. Liens profonds : `index.html?projet=yacht|remote|villa|business#simulateur`.
+- Réalisations : 6 cas Problème / Solution / Résultat (exemples de situations, aucune fausse photo). Remplacer par de vraies photos avec l'accord des clients dès les premiers chantiers.
+- `suivi-prospection.xlsx` (livré à part, hors du site) : tableau des 50 prospects + KPI hebdomadaires (ne pas publier : à garder hors du dépôt public si vous y saisissez de vraies données).
+- Leads abandonnés : voir `LEAD-CAPTURE-SETUP.md` (dépôt **privé** obligatoire).

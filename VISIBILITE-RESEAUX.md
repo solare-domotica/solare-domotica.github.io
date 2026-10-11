@@ -30,7 +30,7 @@ Ce document distingue deux types d'actions :
 ### Google Search Console (le plus important)
 1. Va sur [search.google.com/search-console](https://search.google.com/search-console)
    et ajoute une propriété avec l'URL exacte de ton site
-   (`https://maxmcneil.github.io/solaris/`).
+   (`https://solare-domotica.github.io/`).
 2. Méthode de vérification la plus simple pour GitHub Pages : **fichier HTML**.
    Google te donne un fichier du type `google1234567890abcdef.html` à
    télécharger — dépose-le simplement à la racine du dépôt (à côté de
@@ -60,7 +60,7 @@ bel aperçu avec image.
 ### Facebook + Instagram (compte Meta Business unique)
 1. Crée une **Page Facebook professionnelle** (pas un profil personnel) sur
    [facebook.com/pages/create](https://www.facebook.com/pages/create).
-2. Dans les infos de la page, renseigne le site : `https://maxmcneil.github.io/solaris/`.
+2. Dans les infos de la page, renseigne le site : `https://solare-domotica.github.io/`.
 3. Passe ton compte Instagram en **compte professionnel** (Paramètres →
    Compte → Passer à un compte professionnel), relie-le à la Page Facebook via
    **Meta Business Suite** ([business.facebook.com](https://business.facebook.com)),
