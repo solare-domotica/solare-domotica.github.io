@@ -23,13 +23,11 @@
       page: location.pathname,
       when: new Date().toISOString(),
       type: data.type || "",
-      goal: data.goal || "",
-      budget: data.budget || "",
-      address: data.address || "",
+      equip: data.equip || "",
+      city: data.city || "",
+      message: data.message || "",
       firstname: data.firstname || "",
-      lastname: data.lastname || "",
       phone: data.phone || "",
-      email: data.email || "",
       step: data.step || "",
       totalSteps: data.totalSteps || ""
     };
@@ -238,13 +236,13 @@
 
   /* ---------- Objective cards -> jump to simulator ---------- */
   function initObjectiveCards(){
-    document.querySelectorAll("[data-sim-goal]").forEach(function(card){
+    document.querySelectorAll("[data-sim-type]").forEach(function(card){
       card.addEventListener("click", function(){
-        var goal = card.getAttribute("data-sim-goal");
+        var kind = card.getAttribute("data-sim-type");
         var sim = document.getElementById("simulateur");
         if(!sim) return;
         if(window.SOLARIS_SIM){
-          window.SOLARIS_SIM.presetGoal(goal);
+          window.SOLARIS_SIM.presetType(kind);
         }
         sim.scrollIntoView({ behavior: "smooth", block: "start" });
       });
@@ -265,8 +263,22 @@
     var autoAdvanceTimer = null;
     var started = false;
     var completed = false;
+    var LAST = steps.length - 1;
 
-    var state = { type: null, goal: null, budget: null, address: "", firstname: "", lastname: "", phone: "", email: "" };
+    // Language-neutral keys are stored (type: villa|business|yacht|remote|other,
+    // equip: array of cam|alarm|solar|alerts|auto|unsure); display text is
+    // resolved in the *current* language when building the recap / message.
+    var state = { type: null, equip: [], city: "", message: "", firstname: "", phone: "" };
+
+    var VALUE_LABELS = {
+      type:  { villa: "sim.s1.o1", business: "sim.s1.o2", yacht: "sim.s1.o3", remote: "sim.s1.o4", other: "sim.s1.o5" },
+      equip: { cam: "sim.s2.o1", alarm: "sim.s2.o2", solar: "sim.s2.o3", alerts: "sim.s2.o4", auto: "sim.s2.o5", unsure: "sim.s2.o6" }
+    };
+    function displayType(){ var k = VALUE_LABELS.type[state.type]; return k ? t(k) : "—"; }
+    function displayEquip(){
+      if(!state.equip.length) return "—";
+      return state.equip.map(function(k){ return VALUE_LABELS.equip[k] ? t(VALUE_LABELS.equip[k]) : k; }).join(", ");
+    }
 
     function updateProgress(){
       progressItems.forEach(function(el, i){
@@ -275,53 +287,74 @@
       });
     }
 
+    function nextLabel(){ return current === LAST ? t("sim.s4.cta") : t("sim.nav.next"); }
+
     function showStep(i){
       steps.forEach(function(s, idx){ s.classList.toggle("is-active", idx === i); });
       current = i;
       updateProgress();
       backBtn.disabled = (i === 0);
-      var isLast = (i === steps.length - 1);
-      nextBtn.textContent = isLast ? t("sim.s5.cta") : t("sim.nav.next");
+      nextBtn.textContent = nextLabel();
       root.querySelector(".sim-nav").style.display = "flex";
     }
 
     function canAdvance(i){
       if(i === 0) return !!state.type;
-      if(i === 1) return !!state.goal;
-      if(i === 2) return !!state.budget;
-      if(i === 3) return true;
-      if(i === 4) return !!(state.firstname && (state.phone || state.email));
+      if(i === 1) return state.equip.length > 0;
+      if(i === 2) return state.city.length > 1;
+      if(i === 3) return !!(state.firstname && state.phone.replace(/\D/g, "").length >= 6);
       return true;
     }
 
+    function shake(){
+      var activeStep = root.querySelector(".sim-step.is-active");
+      if(!activeStep) return;
+      activeStep.classList.remove("shake");
+      void activeStep.offsetWidth;
+      activeStep.classList.add("shake");
+    }
+
     function advance(){
-      if(!canAdvance(current)){
-        var activeStep = root.querySelectorAll(".sim-step.is-active")[0];
-        activeStep.classList.remove("shake");
-        void activeStep.offsetWidth;
-        activeStep.classList.add("shake");
-        return;
-      }
-      if(current === steps.length - 1){ submit(); return; }
+      if(!canAdvance(current)){ shake(); return; }
+      if(current === LAST){ submit(); return; }
       showStep(current + 1);
       sendLead("in_progress", snapshotState());
+    }
+
+    function setChoiceUI(choice, on){
+      choice.classList.toggle("is-selected", on);
+      choice.setAttribute("aria-checked", on ? "true" : "false");
     }
 
     function selectChoice(choice, opts){
       var group = choice.closest(".choice-grid");
       var field = group.getAttribute("data-field");
       var value = choice.getAttribute("data-value");
-      group.querySelectorAll(".choice").forEach(function(c){
-        c.classList.remove("is-selected");
-        c.setAttribute("aria-checked", "false");
-      });
-      choice.classList.add("is-selected");
-      choice.setAttribute("aria-checked", "true");
-      state[field] = value;
       started = true;
+
+      if(group.hasAttribute("data-multi")){
+        // Multi-select: toggle; "unsure" is exclusive of every other option.
+        var on = !choice.classList.contains("is-selected");
+        if(on && value === "unsure"){
+          group.querySelectorAll(".choice").forEach(function(c){ setChoiceUI(c, c === choice); });
+        } else {
+          setChoiceUI(choice, on);
+          if(on){
+            var u = group.querySelector('.choice[data-value="unsure"]');
+            if(u) setChoiceUI(u, false);
+          }
+        }
+        state[field] = Array.prototype.map.call(group.querySelectorAll(".choice.is-selected"), function(c){
+          return c.getAttribute("data-value");
+        });
+        return; // multi-select never auto-advances: the visitor taps Continue
+      }
+
+      group.querySelectorAll(".choice").forEach(function(c){ setChoiceUI(c, c === choice); });
+      state[field] = value;
       if(!(opts && opts.silent)){
         window.clearTimeout(autoAdvanceTimer);
-        autoAdvanceTimer = window.setTimeout(advance, 380); // brief pause so the selection is visible before advancing
+        autoAdvanceTimer = window.setTimeout(advance, 380); // let the selection be seen before advancing
       }
     }
 
@@ -335,41 +368,30 @@
       });
     });
 
-    root.querySelectorAll("input[data-field]").forEach(function(input){
+    root.querySelectorAll("[data-field]").forEach(function(input){
+      if(input.tagName !== "INPUT" && input.tagName !== "TEXTAREA") return;
       input.addEventListener("input", function(){
         state[input.getAttribute("data-field")] = input.value.trim();
         started = true;
       });
+      input.addEventListener("keydown", function(e){
+        if(e.key === "Enter" && input.tagName === "INPUT"){ e.preventDefault(); advance(); }
+      });
     });
-
-    // Neutral keys stored in state.type/goal/budget (language-independent) →
-    // translated display text, resolved in the *current* language. This
-    // keeps the recap and the WhatsApp message consistent with whichever
-    // language the visitor was actually using, instead of always showing
-    // the French option label regardless of UI language.
-    var VALUE_LABELS = {
-      type:   { individual: "sim.s1.o1", apartment: "sim.s1.o2", business: "sim.s1.o3", other: "sim.s1.o4" },
-      goal:   { bill: "sim.s2.o1", produce: "sim.s2.o2", secure: "sim.s2.o3", automate: "sim.s2.o4", all: "sim.s2.o5" },
-      budget: { low: "sim.s3.o1", mid: "sim.s3.o2", high: "sim.s3.o3", veryhigh: "sim.s3.o4", unknown: "sim.s3.o5" }
-    };
-    function displayValue(field, key){
-      var map = VALUE_LABELS[field];
-      if(!map || !key || !map[key]) return "—";
-      return t(map[key]);
-    }
 
     function buildRecap(){
       var recap = root.querySelector(".recap");
       if(!recap) return;
-      // Built via DOM methods (not innerHTML) so free-text input like the
-      // address field is always treated as plain text, never as markup.
+      // DOM methods (not innerHTML): free text is always treated as plain text.
       recap.textContent = "";
-      [
-        [t("sim.recap.type"), displayValue("type", state.type)],
-        [t("sim.recap.goal"), displayValue("goal", state.goal)],
-        [t("sim.recap.budget"), displayValue("budget", state.budget)],
-        [t("sim.recap.address"), state.address || "—"]
-      ].forEach(function(pair){
+      var rows = [
+        [t("sim.recap.type"), displayType()],
+        [t("sim.recap.equip"), displayEquip()],
+        [t("sim.recap.city"), state.city || "—"]
+      ];
+      if(state.message) rows.push([t("sim.recap.msg"), state.message]);
+      rows.push([t("sim.recap.name"), state.firstname || "—"], [t("sim.recap.phone"), state.phone || "—"]);
+      rows.forEach(function(pair){
         var row = document.createElement("div");
         var b = document.createElement("b");
         b.textContent = pair[0] + ":";
@@ -379,80 +401,39 @@
       });
     }
 
-    // Rough, clearly-labelled indicative ranges (EUR/year) — never a precise
-    // promise. Keyed on the stated consumption bracket; halved for
-    // "automate" (smart-home automation alone saves less than solar
-    // production). Security-only projects get no financial estimate at all
-    // — protection isn't a monetary gain and shouldn't be framed as one.
-    var ESTIMATE_RANGES = { low: [150, 350], mid: [400, 800], high: [800, 1400], veryhigh: [1200, 2200] };
-    var ENERGY_GOALS = ["bill", "produce", "all"];
-
-    function computeEstimate(){
-      var goal = state.goal, budget = state.budget;
-      var isEnergyGoal = ENERGY_GOALS.indexOf(goal) !== -1;
-      var isAutomateGoal = goal === "automate";
-      if(!isEnergyGoal && !isAutomateGoal) return { applicable: false };
-      var range = ESTIMATE_RANGES[budget];
-      if(!range) return { applicable: true, known: false };
-      var min = range[0], max = range[1];
-      if(isAutomateGoal){ min = Math.round(min * 0.45 / 10) * 10; max = Math.round(max * 0.45 / 10) * 10; }
-      return { applicable: true, known: true, min: min, max: max };
-    }
-
-    function buildEstimate(){
-      var box = root.querySelector(".estimate-box");
-      var valueEl = root.querySelector(".estimate-value");
-      if(!box || !valueEl) return;
-      var est = computeEstimate();
-      if(!est.applicable){ box.style.display = "none"; return; }
-      box.style.display = "block";
-      if(est.known){
-        var perYear = { fr: "an", en: "yr", it: "anno" }[currentLang] || "an";
-        valueEl.textContent = est.min + " € – " + est.max + " € / " + perYear;
-      } else {
-        valueEl.textContent = t("sim.estimate.unknown");
-      }
+    // "Première orientation": honest, qualitative — no price, no savings promise.
+    function buildPack(){
+      var list = root.querySelector(".pack-list");
+      if(!list) return;
+      list.textContent = "";
+      var keys = ["sim.pack." + (state.type || "other")];
+      ["solar", "alerts", "auto"].forEach(function(k){
+        if(state.equip.indexOf(k) !== -1) keys.push("sim.pack." + k);
+      });
+      keys.forEach(function(k){
+        var li = document.createElement("li");
+        li.textContent = t(k);
+        list.appendChild(li);
+      });
     }
 
     function buildWaMessage(){
-      var templates = {
-        fr: [
-          "Bonjour Solare Domotica, voici ma demande d'étude :",
-          "Type de projet : " + displayValue("type", state.type),
-          "Objectif : " + displayValue("goal", state.goal),
-          "Consommation : " + displayValue("budget", state.budget),
-          "Adresse : " + (state.address || "—"),
-          "Nom : " + (state.firstname || "") + " " + (state.lastname || ""),
-          "Téléphone : " + (state.phone || "—"),
-          "Email : " + (state.email || "—")
-        ],
-        en: [
-          "Hello Solare Domotica, here is my study request:",
-          "Project type: " + displayValue("type", state.type),
-          "Goal: " + displayValue("goal", state.goal),
-          "Energy spend: " + displayValue("budget", state.budget),
-          "Address: " + (state.address || "—"),
-          "Name: " + (state.firstname || "") + " " + (state.lastname || ""),
-          "Phone: " + (state.phone || "—"),
-          "Email: " + (state.email || "—")
-        ],
-        it: [
-          "Ciao Solare Domotica, ecco la mia richiesta di studio:",
-          "Tipo di progetto: " + displayValue("type", state.type),
-          "Obiettivo: " + displayValue("goal", state.goal),
-          "Consumo: " + displayValue("budget", state.budget),
-          "Indirizzo: " + (state.address || "—"),
-          "Nome: " + (state.firstname || "") + " " + (state.lastname || ""),
-          "Telefono: " + (state.phone || "—"),
-          "Email: " + (state.email || "—")
-        ]
+      var T = {
+        fr: ["Bonjour Solare Domotica, voici ma demande d'étude :", "Projet : ", "Équipements : ", "Zone : ", "Précision : ", "Nom : ", "Téléphone : ", "Je peux envoyer des photos du lieu ici."],
+        en: ["Hello Solare Domotica, here is my study request:", "Project: ", "Equipment: ", "Area: ", "Note: ", "Name: ", "Phone: ", "I can send photos of the place here."],
+        it: ["Ciao Solare Domotica, ecco la mia richiesta di studio:", "Progetto: ", "Dotazioni: ", "Zona: ", "Nota: ", "Nome: ", "Telefono: ", "Posso inviare qui le foto del luogo."]
       };
-      return (templates[currentLang] || templates.fr).join("\n");
+      var m = T[currentLang] || T.fr;
+      var lines = [m[0], m[1] + displayType(), m[2] + displayEquip(), m[3] + (state.city || "—")];
+      if(state.message) lines.push(m[4] + state.message);
+      lines.push(m[5] + (state.firstname || "—"), m[6] + (state.phone || "—"), m[7]);
+      return lines.join("\n");
     }
 
     function snapshotState(){
       var s = {};
       for(var k in state){ s[k] = state[k]; }
+      s.equip = state.equip.join(",");
       s.step = current + 1;
       s.totalSteps = steps.length;
       return s;
@@ -460,7 +441,7 @@
 
     function submit(){
       buildRecap();
-      buildEstimate();
+      buildPack();
       steps.forEach(function(s){ s.classList.remove("is-active"); });
       root.querySelector(".sim-nav").style.display = "none";
       root.querySelector(".sim-progress").style.display = "none";
@@ -468,76 +449,69 @@
       completed = true;
       sendLead("completed", snapshotState());
 
-      // Hand off to WhatsApp automatically — no extra click required.
-      // Desktop: open a new tab immediately (WhatsApp Web), the site stays open.
-      // Mobile: a new-tab window.open() often just opens silently in the
-      // background instead of switching to the WhatsApp app, so we navigate
-      // the current tab instead — the reliable way to trigger the OS app
-      // link. A short pause first lets the visitor actually see the
-      // confirmation screen (and their estimate) before the handoff.
+      // Show the pre-study first, then hand off to WhatsApp automatically.
+      // Desktop: new tab (WhatsApp Web). Mobile: navigate the current tab so
+      // the OS opens the WhatsApp app reliably, after a pause long enough to
+      // read the first orientation.
       var waUrl = waLink(buildWaMessage());
       if(isMobileUA()){
-        window.setTimeout(function(){ window.location.href = waUrl; }, 900);
+        window.setTimeout(function(){ window.location.href = waUrl; }, 2200);
       } else {
         window.open(waUrl, "_blank", "noopener");
       }
 
       var waBtn = successPanel.querySelector("[data-wa-submit]");
       if(waBtn){
-        // Kept as a manual fallback in case the automatic handoff didn't
-        // fire (e.g. the visitor navigated back before the redirect ran).
         waBtn.onclick = function(){ openWhatsApp(waLink(buildWaMessage())); };
       }
     }
 
     nextBtn.addEventListener("click", advance);
-
-    backBtn.addEventListener("click", function(){
-      if(current > 0) showStep(current - 1);
-    });
+    backBtn.addEventListener("click", function(){ if(current > 0) showStep(current - 1); });
 
     var retryBtn = successPanel.querySelector("[data-sim-retry]");
     if(retryBtn){
       retryBtn.addEventListener("click", function(){
         successPanel.classList.remove("is-active");
         root.querySelector(".sim-progress").style.display = "flex";
+        completed = false;
         showStep(0);
       });
     }
 
-    // Recover an abandoned form: if the visitor leaves or hides the tab after
-    // starting the simulator but before finishing it, send one last snapshot
-    // with sendBeacon (works during unload, no click required).
+    // Abandoned form: last snapshot via sendBeacon when the visitor leaves.
     function handleLeaveIfAbandoned(){
-      if(started && !completed){
-        sendLead("abandoned", snapshotState(), true);
-      }
+      if(started && !completed){ sendLead("abandoned", snapshotState(), true); }
     }
     document.addEventListener("visibilitychange", function(){
       if(document.visibilityState === "hidden") handleLeaveIfAbandoned();
     });
     window.addEventListener("pagehide", handleLeaveIfAbandoned);
 
+    function presetType(key){
+      var choice = steps[0].querySelector('.choice[data-value="' + key + '"]');
+      if(!choice) return false;
+      selectChoice(choice, { silent: true });
+      showStep(1); // type already known → go straight to equipment
+      return true;
+    }
+
     window.SOLARIS_SIM = {
-      presetGoal: function(goalKey){
-        var map = {
-          bill: 0, secure: 2, automate: 3, all: 4
-        };
-        var idx = map[goalKey];
-        if(idx === undefined) return;
-        var group = steps[1].querySelector(".choice-grid");
-        var choice = group.querySelectorAll(".choice")[idx];
-        if(choice){ selectChoice(choice, { silent: true }); }
-        showStep(1);
-      },
+      presetType: presetType,
       refresh: function(){
         updateProgress();
-        nextBtn.textContent = (current === steps.length - 1) ? t("sim.s5.cta") : t("sim.nav.next");
-        if(successPanel.classList.contains("is-active")){ buildRecap(); buildEstimate(); }
+        nextBtn.textContent = nextLabel();
+        if(successPanel.classList.contains("is-active")){ buildRecap(); buildPack(); }
       }
     };
 
     showStep(0);
+
+    // Deep link from other pages: index.html?projet=yacht#simulateur
+    try {
+      var wanted = new URLSearchParams(window.location.search).get("projet");
+      if(wanted){ presetType(wanted); started = false; }
+    } catch(e){}
   }
 
   /* ---------- Active nav link on scroll (best-effort, light) ---------- */
@@ -753,8 +727,8 @@
       return (templates[currentLang] || templates.fr).join("\n");
     }
     function snapshotState(){
-      return { type: "connect", goal: state.target || "", budget: "", address: "",
-        firstname: state.firstname, lastname: "", phone: state.phone, email: "",
+      return { type: "connect", equip: state.target || "", city: "", message: "",
+        firstname: state.firstname, phone: state.phone,
         step: current + 1, totalSteps: steps.length };
     }
 
