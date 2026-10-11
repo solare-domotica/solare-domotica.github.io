@@ -712,7 +712,7 @@ h1,h2,h3,h4,p{ margin:0; }
 
 .field{ margin-bottom: 16px; }
 .field label{ display:block; font-size: 13.5px; font-weight:600; color: var(--ink-dim); margin-bottom: 7px; }
-.field input{
+.field input, .field textarea{
   width:100%;
   padding: 14px 16px;
   border-radius: var(--radius-m);
@@ -722,7 +722,7 @@ h1,h2,h3,h4,p{ margin:0; }
   font-size: 15.5px;
   font-family: inherit;
 }
-.field input:focus{ border-color: var(--electric); }
+.field input:focus, .field textarea:focus{ border-color: var(--electric); }
 .field-row{ display:grid; gap:14px; }
 @media (min-width: 560px){ .field-row{ grid-template-columns: 1fr 1fr; } }
 
@@ -1265,3 +1265,20 @@ h1,h2,h3,h4,p{ margin:0; }
 .fast-form .sim-success{ display:none; text-align:center; padding: 10px 0 4px; }
 .fast-form .sim-success.is-active{ display:block; }
 
+
+/* Simulator v2 — multi-select, textarea, pack list */
+.field textarea{ resize: vertical; min-height: 64px; font: inherit; }
+.choice--multi .dot{ border-radius: 6px; }
+.choice--multi.is-selected .dot::after{ border-radius: 3px; }
+.pack-list{ list-style:none; margin: 6px 0 12px; padding:0; text-align:left; display:grid; gap:8px; }
+.pack-list li{ position:relative; padding-left: 26px; font-size: 14.5px; color: var(--ink); }
+.pack-list li::before{ content:"✓"; position:absolute; left:0; top:0; color: var(--gold); font-weight:800; }
+
+/* Réalisations — cas Problème / Solution / Résultat */
+.gallery-thumb.case-thumb, .case .gallery-thumb{ aspect-ratio: 16/6; }
+.case-ico{ font-size: 38px; line-height:1; }
+.case-steps{ margin: 10px 0 0; display:grid; gap:10px; }
+.case-steps dt{ font-size: 11.5px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color: var(--ink-faint); }
+.case-steps div:last-child dt{ color: var(--gold); }
+.case-steps dd{ margin:2px 0 0; font-size: 13.5px; color: var(--ink-dim); }
+.case-steps div:last-child dd{ color: var(--ink); }
